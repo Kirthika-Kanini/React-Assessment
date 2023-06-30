@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kirth\\Desktop\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj": {}
+    "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kirth\\Desktop\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj": {
+    "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kirth\\Desktop\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj",
+        "projectUniqueName": "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj",
         "projectName": "HospitalManagement",
-        "projectPath": "C:\\Users\\kirth\\Desktop\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj",
+        "projectPath": "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\HospitalManagement.csproj",
         "packagesPath": "C:\\Users\\kirth\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kirth\\Desktop\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\obj\\",
+        "outputPath": "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kirth\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -57,6 +57,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.8, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.14, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
