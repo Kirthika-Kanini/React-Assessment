@@ -1,0 +1,27 @@
+/* Toast container */
+.Toastify__toast-container {
+    z-index: 9999;
+  }
+  
+  /* Toast body */
+  .Toastify__toast-body {
+    font-size: 16px;
+  }
+  
+  /* Toast close button */
+  .Toastify__close-button {
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Toast success style */
+  .Toastify__toast--success {
+    background-color: #fff;
+  }
+  
+  /* Toast error style */
+  .Toastify__toast--error {
+    background-color: #fff;
+  }
+  

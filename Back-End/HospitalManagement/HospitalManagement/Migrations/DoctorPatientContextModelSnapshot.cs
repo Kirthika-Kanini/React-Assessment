@@ -63,6 +63,9 @@ namespace HospitalManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorId"));
 
+                    b.Property<string>("DocImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DoctorName")
                         .HasColumnType("nvarchar(max)");
 
@@ -115,6 +118,9 @@ namespace HospitalManagement.Migrations
                     b.Property<string>("MedicalHistory")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PatImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PatientName")
                         .HasColumnType("nvarchar(max)");
 
@@ -161,6 +167,12 @@ namespace HospitalManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Specialization")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
