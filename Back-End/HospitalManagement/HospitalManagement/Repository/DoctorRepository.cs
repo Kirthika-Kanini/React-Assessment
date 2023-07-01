@@ -93,6 +93,7 @@ namespace HospitalManagement.Repository
             existingDoctor.Experience = doctor.Experience;
             existingDoctor.LicenseNumber = doctor.LicenseNumber;
             existingDoctor.Tesimonials = doctor.Tesimonials;
+            existingDoctor.Video = doctor.Video;
             existingDoctor.DocImagePath = doctor.DocImagePath;
 
             await _context.SaveChangesAsync();

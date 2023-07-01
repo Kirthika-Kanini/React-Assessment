@@ -39,7 +39,7 @@ function Approval() {
           <div className="usercard-content">
             <p className="usercard-title">Hello {register.name}</p>
             
-            <p>You Status is {register.status}</p>
+            <p>Your Status is {register.status}</p>
             {register.status === 'approved' && (
               <div className='down'>
               <Link to="/Login" className="useraccess-button">Access</Link></div>

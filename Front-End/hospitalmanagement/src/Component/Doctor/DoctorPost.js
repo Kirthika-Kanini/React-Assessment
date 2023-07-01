@@ -13,6 +13,7 @@ const DoctorPost = () => {
   const [experience, setExperience] = useState(0);
   const [licenseNumber, setLicenseNumber] = useState("");
   const [tesimonials, setTesimonials] = useState("");
+  const [video,setVideo]=useState("");
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
@@ -40,6 +41,7 @@ const DoctorPost = () => {
     else if (name === "experience") setExperience(Number(value));
     else if (name === "licenseNumber") setLicenseNumber(value);
     else if (name === "tesimonials") setTesimonials(value);
+    else if (name === "video") setVideo(value);
   };
 
   const handleImageChange = (event) => {
@@ -58,6 +60,7 @@ const DoctorPost = () => {
     formData.append("experience", experience);
     formData.append("licenseNumber", licenseNumber);
     formData.append("tesimonials", tesimonials);
+    formData.append("video",video);
   
     if (selectedDoctor) {
       axios
@@ -102,6 +105,7 @@ const DoctorPost = () => {
     setExperience(doctor.experience);
     setLicenseNumber(doctor.licenseNumber);
     setTesimonials(doctor.tesimonials);
+    setVideo(doctor.video);
   };
   
   const resetForm = () => {
@@ -114,6 +118,7 @@ const DoctorPost = () => {
     setExperience(0);
     setLicenseNumber("");
     setTesimonials("");
+    setVideo("");
   };
   const handleDelete = (doctorId) => {
     axios
@@ -176,6 +181,7 @@ const DoctorPost = () => {
             onChange={handleInputChange}
             required
           />
+          
         </div>
         <div className="form-group">
           <label>Experience</label>
@@ -209,7 +215,18 @@ const DoctorPost = () => {
             onChange={handleInputChange}
             required
           />
-        </div>
+        </div>   <div className="form-group">
+          <label>Video Links</label>
+          <input
+            type="text"
+            name="video"
+            className="form-control"
+            value={video}
+            onChange={handleInputChange}
+            required
+          />
+          
+        </div><br/>
         <div className="form-group">
           <label>Image</label>
           <input
@@ -219,7 +236,7 @@ const DoctorPost = () => {
             onChange={handleImageChange}
             required
           />
-        </div>
+        </div><br/>
         <div className="form-group">
         <button type="submit" className="btn btn-primary">
           {selectedDoctor ? "Update" : "Create"}
@@ -237,6 +254,7 @@ const DoctorPost = () => {
             <th>Experience</th>
             <th>License Number</th>
             <th>Tesimonials</th>
+            <th>Video</th>
             <th>Image</th>
             <th>Update</th>
             <th>Delete</th>
@@ -252,6 +270,7 @@ const DoctorPost = () => {
               <td>{doctor.experience}</td>
               <td>{doctor.licenseNumber}</td>
               <td>{doctor.tesimonials}</td>
+              <td>{doctor.video}</td>
               <td>
                 <img
                   src={`https://localhost:7224/uploads/doctor/${doctor.docImagePath}`}

@@ -21,6 +21,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 builder.Services.AddScoped<IDoctor, DoctorRepository>();
+builder.Services.AddScoped<IPatient, PatientRepository>();
+builder.Services.AddScoped<IAppointment, AppointmentRepository>();
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {

@@ -12,6 +12,7 @@
         public int? Experience { get; set; }
         public string? LicenseNumber {get; set;} 
         public string? Tesimonials { get; set; }
+        public string? Video { get; set; }
         public ICollection<Appointment>? Appointments { get; set; }
         public ICollection<Patient>? Patients { get; set; }
     }

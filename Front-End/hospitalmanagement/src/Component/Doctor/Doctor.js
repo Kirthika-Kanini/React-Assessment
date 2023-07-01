@@ -29,7 +29,9 @@ export default function Doctor() {
     }
     return null;
   };
-
+  const handleFixAppointment = (doctorId) => {
+    localStorage.setItem('selectedDoctorId', doctorId);
+  };
   const fetchDoctors = () => {
     axios
       .get(Variables.API_URL + 'Doctors', {
@@ -62,7 +64,7 @@ export default function Doctor() {
                 src={`https://localhost:7224/uploads/doctor/${doctor.docImagePath}`}
                 className="card-img-top"
                 alt="Doctor Image"
-                style={{ height: "400px", objectFit: "cover" }}
+                style={{ height: "200px", objectFit: "cover" }}
               />
               <div className="card-body">
                 <h5 className="card-title">{doctor.doctorName}</h5>
@@ -72,6 +74,13 @@ export default function Doctor() {
                 <p className="card-text">Experience: {doctor.experience}</p>
                 <p className="card-text">License Number: {doctor.licenseNumber}</p>
                 <p className="card-text">Testimonials: {doctor.tesimonials}</p>
+                <p className="card-text">Video: {doctor.video}</p>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleFixAppointment(doctor.doctorId)}
+                >
+                  Fix Appointment
+                </button>
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ const Sidebar = () => {
       <ul>
         <li>
           <button className="nav-button active">
-            <Link to="/doctor" className="">
+            <Link to="/doctor" className="nav-link">
               <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" />
               Doctor
             </Link>
@@ -18,7 +18,7 @@ const Sidebar = () => {
         </li>
         <li>
           <button className="nav-button">
-            <Link to="/patients" className="">
+            <Link to="/patient" className="nav-link">
               <FontAwesomeIcon icon={faUsers} className="nav-icon" />
               Patients
             </Link>
@@ -26,7 +26,7 @@ const Sidebar = () => {
         </li>
         <li>
           <button className="nav-button">
-            <Link to="/appointments" className="">
+            <Link to="/appointmentview" className="nav-link">
               <FontAwesomeIcon icon={faBox} className="nav-icon" />
               Appointments
             </Link>
@@ -34,7 +34,7 @@ const Sidebar = () => {
         </li>
         <li>
           <button className="nav-button">
-            <Link to="/settings" className="">
+            <Link to="/settings" className="nav-link">
               <FontAwesomeIcon icon={faCog} className="nav-icon" />
               Settings
             </Link>

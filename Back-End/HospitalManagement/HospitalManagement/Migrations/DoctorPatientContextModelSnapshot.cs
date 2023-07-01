@@ -87,6 +87,9 @@ namespace HospitalManagement.Migrations
                     b.Property<string>("Tesimonials")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Video")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("DoctorId");
 
                     b.ToTable("Doctors");
