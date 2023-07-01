@@ -3,10 +3,12 @@ import axios from 'axios';
 import { Variables } from '../Variable';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './Approval.css';
+import { Link } from 'react-router-dom';
+import './Approve.css';
 
 function Approval() {
   const [registers, setRegisters] = useState([]);
+  const storedName = localStorage.getItem('name');
 
   useEffect(() => {
     fetchItems();
@@ -28,15 +30,21 @@ function Approval() {
       });
   };
 
+  const filteredRegisters = registers.filter((register) => register.name === storedName);
+
   return (
-    <div className="approval-container">
-      {registers.map((register, index) => (
-        <div key={register.id} className={`card ${index % 4 === 0 ? 'first-card' : ''}`}>
-          <p>Name: {register.name}</p>
-          <p>Role: {register.role}</p>
-          <p>Specialization: {register.specialization}</p>
-          <p>Gender: {register.gender}</p>
-          <p>Status: {register.status}</p>
+    <div className="userapproval-container">
+      {filteredRegisters.map((register, index) => (
+        <div key={register.id} className={`usercard ${index % 4 === 0 ? 'userfirst-card' : ''}`}>
+          <div className="usercard-content">
+            <p className="usercard-title">Hello {register.name}</p>
+            
+            <p>You Status is {register.status}</p>
+            {register.status === 'approved' && (
+              <div className='down'>
+              <Link to="/Login" className="useraccess-button">Access</Link></div>
+            )}
+          </div>
         </div>
       ))}
     </div>

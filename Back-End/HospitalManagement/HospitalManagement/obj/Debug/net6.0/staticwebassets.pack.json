@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\wwwroot\\uploads\\doctor\\2cfed63a-2db8-4017-85e5-379198998edc.jpg",
+      "PackagePath": "staticwebassets\\uploads\\doctor\\2cfed63a-2db8-4017-85e5-379198998edc.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.HospitalManagement.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.HospitalManagement.props",
+      "PackagePath": "build\\HospitalManagement.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.HospitalManagement.props",
+      "PackagePath": "buildMultiTargeting\\HospitalManagement.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.HospitalManagement.props",
+      "PackagePath": "buildTransitive\\HospitalManagement.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

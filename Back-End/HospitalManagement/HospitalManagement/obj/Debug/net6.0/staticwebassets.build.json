@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "DMsjFiqV3el2C/BeBRxA2WVlkY58L3VOLBP/E/dnEuw=",
+  "Hash": "P0ufQ//hpEHfCyAKoHq0H4+oQ3Tmq3nZAZSHDpKNgOM=",
   "Source": "HospitalManagement",
   "BasePath": "_content/HospitalManagement",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "HospitalManagement\\wwwroot",
+      "Source": "HospitalManagement",
+      "ContentRoot": "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\wwwroot\\",
+      "BasePath": "_content/HospitalManagement",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\wwwroot\\uploads\\doctor\\2cfed63a-2db8-4017-85e5-379198998edc.jpg",
+      "SourceId": "HospitalManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Kanini Software Solutions\\React(BigBang)\\Back-End\\HospitalManagement\\HospitalManagement\\wwwroot\\",
+      "BasePath": "_content/HospitalManagement",
+      "RelativePath": "uploads/doctor/2cfed63a-2db8-4017-85e5-379198998edc.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\doctor\\2cfed63a-2db8-4017-85e5-379198998edc.jpg"
+    }
+  ]
 }

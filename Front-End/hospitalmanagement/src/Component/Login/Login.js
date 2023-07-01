@@ -18,6 +18,8 @@ function Login() {
     useEffect(() => {
         sessionStorage.clear();
     }, []);
+
+    
     const proceedLoginUsingAPI = (e) => {
         e.preventDefault();
         if (validate()) {
@@ -81,7 +83,7 @@ function Login() {
                 <img src={image1} alt="" className="image-1" />
                 <form onSubmit={proceedLoginUsingAPI} className='form'>
                     <h3>New Account?</h3>
-                    <div className="col-lg-6">
+                    <div className="col">
                         <div className="form-group">
                             <label>User Name <span className="errmsg">*</span></label>
                             <input
@@ -92,7 +94,7 @@ function Login() {
                         </div>
                     </div>
 
-                    <div className="col-lg-6">
+                    <div className="col">
                         <div className="form-group">
                             <label>Email <span className="errmsg">*</span></label>
                             <input
@@ -103,7 +105,7 @@ function Login() {
                         </div>
                     </div>
 
-                    <div className="col-lg-6">
+                    <div className="col">
                         <div className="form-group">
                             <label>Password <span className="errmsg">*</span></label>
                             <input
@@ -141,8 +143,8 @@ function Login() {
                         </div>
                     </div>
                     <div className="card-footer">
-                        <button type="submit" className="button btn btn-primary">Login</button>
-                        Create an Account New Account <Link className="btn btn-success" to="/register">Register</Link>
+                        <button type="submit" className="button ">Login</button>
+                        Create an Account New Account <Link className="" to="/register">Register</Link>
                     </div>
 
                 </form>

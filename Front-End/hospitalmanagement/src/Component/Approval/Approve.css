@@ -1,0 +1,49 @@
+.userapproval-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .usercard {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    padding: 40px;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .userfirst-card {
+    background-color: #d4b5b5;
+  }
+  
+  .usercard-content {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  
+  .usercard-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .useraccess-button {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    background-color: #fff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    color:black
+  }
+  
+  .useraccess-button:hover {
+    background-color: #f3d2d2;
+  }
+  .down{
+    margin-top: 20px;
+  }

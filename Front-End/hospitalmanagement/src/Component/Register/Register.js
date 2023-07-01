@@ -5,7 +5,6 @@ import './Register.css';
 import { toast } from 'react-toastify';
 import './ToastStyles.css';
 import { Link, useNavigate } from 'react-router-dom';
-
 function Register() {
 	const navigate = useNavigate();
 
@@ -97,6 +96,7 @@ function Register() {
 		let regobj = { name, password, email, phone, country, address, gender, role, status, specialization };
 		console.log(JSON.stringify(regobj));
 		if (IsValidate()) {
+			localStorage.setItem('name', name);
 			fetch('https://localhost:7224/api/Users', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -144,32 +144,32 @@ function Register() {
 				<img src={image1} alt="" className="image-1" />
 				<form onSubmit={handlesubmit} className='form'>
 					<h3>New Account?</h3>
-					<div className="col-lg-6">
+					<div className="col">
 						<div className="form-group">
 							<label>Full Name <span className="errmsg">*</span></label>
 							<input value={name} onChange={e => namechange(e.target.value)} className="form-control"></input>
 						</div>
 					</div>
 
-					<div className="col-lg-6">
+					<div className="col">
 						<div className="form-group">
 							<label>Password <span className="errmsg">*</span></label>
 							<input value={password} onChange={e => passwordchange(e.target.value)} type="password" className="form-control"></input>
 						</div>
 					</div>
-					<div className="col-lg-6">
+					<div className="col">
 						<div className="form-group">
 							<label>Email <span className="errmsg">*</span></label>
 							<input value={email} onChange={e => emailchange(e.target.value)} className="form-control"></input>
 						</div>
 					</div>
-					<div className="col-lg-6">
+					<div className="col">
 						<div className="form-group">
 							<label>Phone <span className="errmsg"></span></label>
 							<input value={phone} onChange={e => phonechange(e.target.value)} className="form-control"></input>
 						</div>
 					</div>
-					<div className="col-lg-6">
+					<div className="col">
 						<div className="form-group">
 							<label>Country <span className="errmsg">*</span></label>
 							<input value={country} onChange={e => countrychange(e.target.value)} className="form-control"></input>
@@ -219,8 +219,8 @@ function Register() {
 						</div>
 					</div>
 					<div className="card-footer">
-						<button type="submit" className="button btn btn-primary">Register</button>
-						Already have an account? <Link to={'/login'} className="btn btn-primary">Login</Link>
+						<button type="submit" className="button ">Register</button>
+						Already have an account? <Link to={'/login'} className="">Login</Link>
 					</div>
 
 				</form>

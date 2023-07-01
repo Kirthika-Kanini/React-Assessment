@@ -46,4 +46,7 @@
   .nav-icon{
     padding-right: 10px;
   }
-  
+ a,Link{
+text-decoration: none;
+color:black;
+ }

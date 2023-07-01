@@ -269,3 +269,4 @@ C:\Kanini Software Solutions\React(BigBang)\Back-End\HospitalManagement\Hospital
 C:\Kanini Software Solutions\React(BigBang)\Back-End\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.pdb
 C:\Kanini Software Solutions\React(BigBang)\Back-End\HospitalManagement\HospitalManagement\obj\Debug\net6.0\HospitalManagement.genruntimeconfig.cache
 C:\Kanini Software Solutions\React(BigBang)\Back-End\HospitalManagement\HospitalManagement\obj\Debug\net6.0\ref\HospitalManagement.dll
+C:\Kanini Software Solutions\React(BigBang)\Back-End\HospitalManagement\HospitalManagement\bin\Debug\net6.0\HospitalManagement.staticwebassets.runtime.json
