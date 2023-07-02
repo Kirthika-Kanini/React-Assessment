@@ -8,39 +8,39 @@ import { Link, useNavigate } from 'react-router-dom';
 function Register() {
 	const navigate = useNavigate();
 
-	const [scrollDisabled, setScrollDisabled] = useState(false);
+	// const [scrollDisabled, setScrollDisabled] = useState(false);
 
-	useEffect(() => {
-		const handleScroll = () => {
-			if (scrollDisabled) {
-				window.scrollTo(0, 0);
-			}
-		};
+	// useEffect(() => {
+	// 	const handleScroll = () => {
+	// 		if (scrollDisabled) {
+	// 			window.scrollTo(0, 0);
+	// 		}
+	// 	};
 
-		if (scrollDisabled) {
-			document.body.style.overflow = 'hidden';
-			window.addEventListener('scroll', handleScroll);
-		} else {
-			document.body.style.overflow = 'auto';
-			window.removeEventListener('scroll', handleScroll);
-		}
-		return () => {
-			document.body.style.overflow = 'auto';
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, [scrollDisabled]);
+	// 	if (scrollDisabled) {
+	// 		document.body.style.overflow = 'hidden';
+	// 		window.addEventListener('scroll', handleScroll);
+	// 	} else {
+	// 		document.body.style.overflow = 'auto';
+	// 		window.removeEventListener('scroll', handleScroll);
+	// 	}
+	// 	return () => {
+	// 		document.body.style.overflow = 'auto';
+	// 		window.removeEventListener('scroll', handleScroll);
+	// 	};
+	// }, [scrollDisabled]);
 
-	const disableScroll = () => {
-		setScrollDisabled(true);
-	};
+	// const disableScroll = () => {
+	// 	setScrollDisabled(true);
+	// };
 
-	const enableScroll = () => {
-		setScrollDisabled(false);
-	};
+	// const enableScroll = () => {
+	// 	setScrollDisabled(false);
+	// };
 
-	useEffect(() => {
-		disableScroll();
-	})
+	// useEffect(() => {
+	// 	disableScroll();
+	// })
 
 
 	const [name, namechange] = useState("");
@@ -117,7 +117,7 @@ function Register() {
 
 					// Check the user's role and navigate accordingly
 					if (role === 'patient') {
-						navigate('/login');
+						navigate('/Otpverify');
 					} else if (role === 'doctor') {
 						navigate('/Approval');
 					}
@@ -175,14 +175,14 @@ function Register() {
 							<input value={country} onChange={e => countrychange(e.target.value)} className="form-control"></input>
 						</div>
 					</div>
-					<div className="col-lg-12">
+					<div className="col">
 						<div className="form-group">
 							<label>Address <span className="errmsg">*</span></label>
 							<textarea value={address} onChange={e => addresschange(e.target.value)} className="form-control"></textarea>
 						</div>
 					</div>
-					
-					<div className="col-lg-12">
+
+					<div className="col">
 						<div className="form-group">
 							<label>Role <span className="errmsg">*</span></label>
 							<select value={role} onChange={e => {
@@ -190,7 +190,7 @@ function Register() {
 								if (e.target.value === "patient") {
 									statuschange("approved");
 								}
-								else{
+								else {
 									statuschange("requested")
 								}
 							}} className="form-control">
@@ -204,21 +204,35 @@ function Register() {
 						<div className="col-lg-12">
 							<div className="form-group">
 								<label>Specialization <span className="errmsg">*</span></label>
-								<input  value={specialization} onChange={e => specializationchange(e.target.value)} className="form-control"></input>
+								<input value={specialization} onChange={e => specializationchange(e.target.value)} className="form-control"></input>
 							</div>
 						</div>
 					)}
-					<div className="col-lg-6">
-						<div className="form-group">
+					<div className="col">
+						<div className="form-group ">
 							<label>Gender <span className="errmsg">*</span></label>
 							<br></br>
-							<input type="radio" checked={gender === 'male'} onChange={e => genderchange(e.target.value)} name="gender" value="male" className="app-check"></input>
-							<label>Male</label>
-							<input type="radio" checked={gender === 'female'} onChange={e => genderchange(e.target.value)} name="gender" value="female" className="app-check"></input>
+							<input
+								type="radio"
+								checked={gender === 'male'}
+								onChange={e => genderchange(e.target.value)}
+								name="gender"
+								value="male"
+								className="app-check"
+							/>
+							<label>Male</label>&nbsp;
+							<input
+								type="radio"
+								checked={gender === 'female'}
+								onChange={e => genderchange(e.target.value)}
+								name="gender"
+								value="female"
+								className="app-check"
+							/>
 							<label>Female</label>
 						</div>
 					</div>
-					<div className="card-footer">
+					<div className="">
 						<button type="submit" className="button ">Register</button>
 						Already have an account? <Link to={'/login'} className="">Login</Link>
 					</div>

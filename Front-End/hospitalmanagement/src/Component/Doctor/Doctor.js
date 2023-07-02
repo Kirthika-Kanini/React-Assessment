@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import XLSX from 'xlsx';
 
 export default function Doctor() {
   const [Doctors, setDoctors] = useState([]);
@@ -19,6 +20,13 @@ export default function Doctor() {
     }
   }, [navigate]);
 
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(Doctors);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Doctors');
+    XLSX.writeFile(workbook, 'doctors.xlsx');
+  };
+
   const getCookieValue = (name) => {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -29,9 +37,7 @@ export default function Doctor() {
     }
     return null;
   };
-  const handleFixAppointment = (doctorId) => {
-    localStorage.setItem('selectedDoctorId', doctorId);
-  };
+
   const fetchDoctors = () => {
     axios
       .get(Variables.API_URL + 'Doctors', {
@@ -56,6 +62,10 @@ export default function Doctor() {
     <div className="container-fluid">
       <h1>Doctors</h1>
 
+      <button onClick={exportToExcel} className="btn btn-primary mb-3">
+        Export to Excel
+      </button>
+
       <div className="row mt-3">
         {Doctors.map((doctor) => (
           <div className="col-md-4 mb-4" key={doctor.doctorId}>
@@ -74,13 +84,8 @@ export default function Doctor() {
                 <p className="card-text">Experience: {doctor.experience}</p>
                 <p className="card-text">License Number: {doctor.licenseNumber}</p>
                 <p className="card-text">Testimonials: {doctor.tesimonials}</p>
-                <p className="card-text">Video: {doctor.video}</p>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleFixAppointment(doctor.doctorId)}
-                >
-                  Fix Appointment
-                </button>
+                <p className="card-text">Specialization: {doctor.specialization}</p>
+              
               </div>
             </div>
           </div>

@@ -4,9 +4,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
-import * as XLSX from 'xlsx';
 
-export default function Patient() {
+export default function PatientUser() {
     const [patients, setPatients] = useState([]);
     const navigate = useNavigate();
   
@@ -19,13 +18,6 @@ export default function Patient() {
         fetchPatients();
       }
     }, [navigate]);
-
-    const exportToExcel = () => {
-      const worksheet = XLSX.utils.json_to_sheet(patients);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Patients');
-      XLSX.writeFile(workbook, 'patients.xlsx');
-    };
   
     const getCookieValue = (name) => {
       const cookies = document.cookie.split(';');
@@ -59,11 +51,37 @@ export default function Patient() {
     };
   
     return (
+        <div>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a className="navbar-brand" href="/">Home</a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <a className="nav-link" href="/about">About</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/services">Services</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
       <div className="container-fluid">
         <h1>Patients</h1>
-        <button onClick={exportToExcel} className="btn btn-primary mb-3">
-        Export to Excel
-      </button>
   
         <div className="row mt-3">
           {patients.map((patient) => (
@@ -89,6 +107,7 @@ export default function Patient() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     );
   }

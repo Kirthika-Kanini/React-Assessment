@@ -4,6 +4,7 @@ import { Variables } from '../Variable';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Approval.css';
+import emailjs from 'emailjs-com';
 
 function AppointmentApproval() {
   const [registers, setRegisters] = useState([]);
@@ -36,11 +37,45 @@ function AppointmentApproval() {
       .then((response) => {
         console.log('Updated', response.data);
         fetchItems();
+        sendEmail(updatedRegister.status, updatedRegister.patientEmail);
       })
       .catch((error) => {
         console.error('Error', error);
       });
   };
+  
+  function sendEmail(currentStatus, patientEmail) {
+    let bodyt = "";
+    // const email = localStorage.getItem('email');
+
+    //setRandomNumber(generatedNumber); // Store the generated number in the state
+
+    if (currentStatus === "Approved") {
+      bodyt = "";
+    } else {
+      bodyt = "Wait please...";
+    }
+
+    console.log(bodyt)
+
+    const templateParams = {
+      to_name: 'User',
+      from_name: 'Kirthika',
+      message: `Your appointment status is ${currentStatus} ${bodyt}`,
+      to_email: patientEmail
+    };
+
+    console.log(templateParams);
+
+    emailjs
+      .send('hotelmanagament_service', 'template_agfnema', templateParams, 'cpbIrL9BInAJkmY2k')
+      .then((response) => {
+        console.log('Email sent successfully:', response);
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+      });
+  }
 
   const handleReject = (register) => {
     const updatedRegister = { ...register, status: 'Rejected' };
@@ -50,6 +85,7 @@ function AppointmentApproval() {
       .then((response) => {
         console.log('Updated', response.data);
         fetchItems();
+        sendEmail(updatedRegister.status, updatedRegister.patientEmail);
       })
       .catch((error) => {
         console.error('Error', error);
@@ -64,6 +100,7 @@ function AppointmentApproval() {
       .then((response) => {
         console.log('Updated', response.data);
         fetchItems();
+        sendEmail(updatedRegister.status, updatedRegister.patientEmail);
       })
       .catch((error) => {
         console.error('Error', error);
@@ -78,6 +115,7 @@ function AppointmentApproval() {
       .then((response) => {
         console.log('Updated', response.data);
         fetchItems();
+        sendEmail(updatedRegister.status, updatedRegister.patientEmail);
       })
       .catch((error) => {
         console.error('Error', error);
@@ -91,22 +129,27 @@ function AppointmentApproval() {
           <p>Name: {register.patientName}</p>
           <p>Date: {register.date}</p>
           <p>Time: {register.time}</p>
+          <p>Email: {register.patientEmail}</p>
           <p>Reason for Visit: {register.reasonForVisit}</p>
           <p>Status: {register.status}</p>
-          <div className="button-container">
-            <button className="accept-button" onClick={() => handleAccept(register)}>
-              Accept
-            </button><br/>
-            <button className="reject-button" onClick={() => handleReject(register)}>
-              Reject
-            </button></div>
-            <div className="button-container">
-            <button className="callstat-button" onClick={() => handleCallStatus(register)}>
-              Call Status
-            </button><br/>
-            <button className="waitlisted-button" onClick={() => handleWaitlisted(register)}>
-              Waitlisted
-            </button>
+          
+          <div className='card-actions'>
+            <div className="button-row">
+              <button className="" onClick={() => handleAccept(register)}>
+                Accept
+              </button>
+              <button className="" onClick={() => handleReject(register)}>
+                Reject
+              </button>
+            </div>
+            <div className="button-row">
+              <button className="" onClick={() => handleCallStatus(register)}>
+                CallStat
+              </button>
+              <button className="" onClick={() => handleWaitlisted(register)}>
+                Waitlisted
+              </button>
+            </div>
           </div>
         </div>
       ))}

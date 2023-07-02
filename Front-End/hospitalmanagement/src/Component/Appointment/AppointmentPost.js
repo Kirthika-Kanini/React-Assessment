@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Variables } from "../Variable";
+import 'bootstrap/dist/css/bootstrap.css';
 
 export class AppointmentPost extends Component {
   constructor(props) {
@@ -8,8 +9,9 @@ export class AppointmentPost extends Component {
     this.state = {
       Appointments: [],
       patientName: "",
-      date: "",
+      date: "", 
       time: "",
+      patientEmail:"",
       reasonForVisit: "",
       status: "scheduled", // Set default value as "scheduled"
       doctorId: ""
@@ -41,6 +43,7 @@ export class AppointmentPost extends Component {
       date,
       time,
       reasonForVisit,
+      patientEmail,
       status,
       doctorId
     } = this.state;
@@ -49,6 +52,7 @@ export class AppointmentPost extends Component {
       patientName: patientName,
       date: date,
       time: time,
+      patientEmail:patientEmail,
       reasonForVisit: reasonForVisit,
       status: status,
       doctor: {
@@ -66,6 +70,7 @@ export class AppointmentPost extends Component {
           date: "",
           time: "",
           reasonForVisit: "",
+          patientEmail:"",
           status: "scheduled", // Reset status to "scheduled" after submission
           doctorId: ""
         });
@@ -91,7 +96,9 @@ export class AppointmentPost extends Component {
   handleReasonForVisitInputChange = (event) => {
     this.setState({ reasonForVisit: event.target.value });
   };
-
+  handleEmailInputChange = (event) => {
+    this.setState({ patientEmail: event.target.value });
+  };
   handleStatusInputChange = (event) => {
     this.setState({ status: event.target.value });
   };
@@ -107,68 +114,99 @@ export class AppointmentPost extends Component {
       date,
       time,
       reasonForVisit,
+      patientEmail,
       doctorId
     } = this.state;
 
     return (
       <div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Patient Name</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Reason for Visit</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Appointments.map((appointment) => (
-              <tr key={appointment.appointmentId}>
-                <td>{appointment.appointmentId}</td>
-                <td>{appointment.patientName}</td>
-                <td>{appointment.date}</td>
-                <td>{appointment.time}</td>
-                <td>{appointment.reasonForVisit}</td>
-                <td>{appointment.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <input
-          type="text"
-          value={patientName}
-          onChange={this.handlePatientNameInputChange}
-          placeholder="Enter Patient Name"
-        />
-        <input
-          type="text"
-          value={date}
-          onChange={this.handleDateInputChange}
-          placeholder="Enter Date"
-        />
-        <input
-          type="text"
-          value={time}
-          onChange={this.handleTimeInputChange}
-          placeholder="Enter Time"
-        />
-        <input
-          type="text"
-          value={reasonForVisit}
-          onChange={this.handleReasonForVisitInputChange}
-          placeholder="Enter Reason for Visit"
-        />
-      
-      <input
-  type="text"
-  value={doctorId}
-  readOnly
-  placeholder="Enter Doctor ID"
-/>
-        <button onClick={this.createAppointment}>Submit</button>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a className="navbar-brand" href="/">Home</a>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <a className="nav-link" href="/about">About</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/services">Services</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/contact">Contact</a>
+          </li>
+        </ul>
       </div>
+    </nav>
+      <div className="container mt-5">
+        <h1 style={{justifyContent:"center"}}>APPOINTMENT FORM</h1>
+        <div className="form-group mt-5">
+          <input
+            type="text"
+            className="form-control"
+            value={patientName}
+            onChange={this.handlePatientNameInputChange}
+            placeholder="Enter Patient Name"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            value={date}
+            onChange={this.handleDateInputChange}
+            placeholder="Enter Date"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            value={time}
+            onChange={this.handleTimeInputChange}
+            placeholder="Enter Time"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            value={reasonForVisit}
+            onChange={this.handleReasonForVisitInputChange}
+            placeholder="Enter Reason for Visit"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            value={patientEmail}
+            onChange={this.handleEmailInputChange}
+            placeholder="Enter Email"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            value={doctorId}
+            readOnly
+            placeholder="Enter Doctor ID"
+          />
+        </div>
+        <button className="btn btn-primary" onClick={this.createAppointment}>
+          Submit
+        </button>
+      </div></div>
     );
   }
 }

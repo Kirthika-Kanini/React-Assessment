@@ -33,6 +33,34 @@ function Approval() {
   const filteredRegisters = registers.filter((register) => register.name === storedName);
 
   return (
+    <div >
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/home">Home</Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+            <Link className="navbar-brand" to="/DoctorUser">Doctor</Link>
+            </li>
+            <li className="nav-item">
+            <Link className="navbar-brand" to="/AppointmentStatus">Status</Link>
+            </li>
+            <li className="nav-item">
+            <Link className="navbar-brand" to="/DiagnoseFetch">Diagnose</Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
     <div className="userapproval-container">
       {filteredRegisters.map((register, index) => (
         <div key={register.id} className={`usercard ${index % 4 === 0 ? 'userfirst-card' : ''}`}>
@@ -42,12 +70,12 @@ function Approval() {
             <p>Your Status is {register.status}</p>
             {register.status === 'approved' && (
               <div className='down'>
-              <Link to="/Login" className="useraccess-button">Access</Link></div>
+              <Link to="/otpverify" className="useraccess-button">Access</Link></div>
             )}
           </div>
         </div>
       ))}
-    </div>
+    </div></div>
   );
 }
 

@@ -128,7 +128,7 @@ const PatientPost = () => {
     };
   
     return (
-      <div className="container">
+      <div className="container-fluid">
         <br />
         <h2>Create Patient</h2>
         <form onSubmit={handleSubmit}>

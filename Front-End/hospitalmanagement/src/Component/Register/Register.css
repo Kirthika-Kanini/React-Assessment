@@ -37,13 +37,13 @@ input, textarea, select {
   .image-1 {
     position: absolute;
     bottom: 28px;
-    left: -160px;
+    left: -180px;
     z-index: 99; }
   
   .image-2 {
     position: absolute;
     bottom: 29px;
-    right: -220px; }
+    right: -160px; }
   
   form {
     width: 100%;
@@ -176,7 +176,7 @@ input, textarea, select {
       display: none; }
   
     form {
-      padding: 35px;
+      padding: 30px;
       box-shadow: none;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;

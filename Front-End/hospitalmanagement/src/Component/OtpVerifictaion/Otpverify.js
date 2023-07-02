@@ -72,7 +72,7 @@ function OtpVerify() {
     });
     if (otp === randomNumber.toString()) {
       console.log("Correct otp");
-      navigate('/'); // Navigate to the '/home' route
+      navigate('/login'); // Navigate to the '/home' route
     } else {
       console.log("Invalid otp");
     }
