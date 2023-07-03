@@ -4,9 +4,10 @@ import { Variables } from '../Variable';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Approval.css';
+import {  useNavigate } from "react-router-dom";
 function AdminApproval() {
   const [registers, setRegisters] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchItems();
   }, []);
@@ -16,7 +17,8 @@ function AdminApproval() {
       .get(Variables.API_URL + 'Users')
       .then((response) => {
         if (response.status === 200) {
-          setRegisters(response.data);
+          const doctors = response.data.filter((user) => user.role === 'doctor');
+          setRegisters(doctors);
         } else {
           throw new Error('Failed to fetch registers');
         }
@@ -39,6 +41,7 @@ function AdminApproval() {
       .then((response) => {
         // Handle successful update
         console.log('Status updated successfully');
+        navigate('/DoctorPost');
         // You can also update the local state if needed
         // Example: Update the status locally
         const updatedRegisters = registers.map((register) => {
@@ -86,7 +89,7 @@ function AdminApproval() {
   
 
   return (
-    <div className="approval-container">
+    <div className="approval-containerani">
       {registers.map((register, index) => (
         <div key={register.id} className={`card ${index % 4 === 0 ? 'first-card' : ''}`}>
           <p>Name: {register.name}</p>
@@ -95,8 +98,8 @@ function AdminApproval() {
           <p>Gender: {register.gender}</p>
           <p>Status: {register.status}</p>
           <div className="button-container">
-          <button className="accept-button" onClick={() => handleAccept(register.id)}>Accept</button>&nbsp;
-          <button className="reject-button" onClick={() => handleReject(register.id)}>Reject</button>
+          <button className="accept-button btn-primary" onClick={() => handleAccept(register.id)}>Accept</button>&nbsp;
+          <button className="reject-button btn-primary " onClick={() => handleReject(register.id)}>Reject</button>
         </div>
         </div>
       ))}

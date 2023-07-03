@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Variables } from '../Variable';
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import * as XLSX from 'xlsx';
 
-export default function DoctorUser() {
+export default function UniqueAppointment() {
   const [Doctors, setDoctors] = useState([]);
   const navigate = useNavigate();
 
@@ -19,6 +20,13 @@ export default function DoctorUser() {
     }
   }, [navigate]);
 
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(Doctors);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Doctors');
+    XLSX.writeFile(workbook, 'doctors.xlsx');
+  };
+
   const getCookieValue = (name) => {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -30,12 +38,9 @@ export default function DoctorUser() {
     return null;
   };
 
-  const handleFixAppointment = (doctorId) => {
-    localStorage.setItem('selectedDoctorId', doctorId);
-    navigate('/AppointmentPost'); 
-  };
-
   const fetchDoctors = () => {
+    const doctorName = localStorage.getItem('DoctorName'); // Get the DoctorName from localStorage
+  
     axios
       .get(Variables.API_URL + 'Doctors', {
         headers: {
@@ -44,7 +49,8 @@ export default function DoctorUser() {
       })
       .then((response) => {
         if (response.status === 200) {
-          setDoctors(response.data);
+          const filteredDoctors = response.data.filter((doctor) => doctor.doctorName === doctorName);
+          setDoctors(filteredDoctors);
         } else {
           throw new Error('Failed to fetch doctors');
         }
@@ -54,11 +60,12 @@ export default function DoctorUser() {
         toast.error('Error fetching doctors:', error.message);
       });
   };
+  
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="/">Home</a>
+         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/home">Home</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -73,48 +80,47 @@ export default function DoctorUser() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="/about">About</a>
+            <Link className="navbar-brand" to="/DoctorUser">Doctor</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/services">Services</a>
+            <Link className="navbar-brand" to="/AppointmentStatus">Status</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/contact">Contact</a>
+            <Link className="navbar-brand" to="/DiagnoseFetch">Diagnose</Link>
             </li>
           </ul>
         </div>
       </nav>
+    <div className="container-fluid">
+      <h1>Appointments</h1>
 
-      <div className="container-fluid">
-        <div className="row mt-3">
-          {Doctors.map((doctor) => (
-            <div className="col-md-3 mb-4" key={doctor.doctorId}>
-              <div className="card">
-                <img
-                  src={`https://localhost:7224/uploads/doctor/${doctor.docImagePath}`}
-                  className="card-img-top"
-                  alt="Doctor Image"
-                  style={{ height: "300px" }}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{doctor.doctorName}</h5>
-                  <p className="card-text">Gender: {doctor.gender}</p>
-                  <p className="card-text">Phone: {doctor.phone}</p>
-                  <p className="card-text">Specialization: {doctor.specialization}</p>
-                  <p className="card-text">Experience: {doctor.experience}</p>
-                  <p className="card-text">Testimonials: {doctor.tesimonials}</p>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handleFixAppointment(doctor.doctorId)}
-                  >
-                    Fix Appointment
-                  </button>
+      <button onClick={exportToExcel} className="btn btn-primary mb-3">
+        Export to Excel
+      </button>
+
+      <div className="row mt-3">
+  {Doctors.map((doctor) => (
+    <div className="col-12 col-md-6 col-lg-4 mb-4" key={doctor.doctorId}>
+      <div className="card">
+        <div className="card-body">
+          {doctor.appointments && (
+            <div>
+              {doctor.appointments.map((appointment) => (
+                <div key={appointment.appointmentId}>
+                  <h5 className="card-title">{appointment.patientName}</h5>
+                  <p>Reason: {appointment.reasonForVisit}</p>
+                  <p>Date: {appointment.date}</p>
+                  <p>Time: {appointment.time}</p>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </div>
+    </div>
+  ))}
+</div>
+</div>
     </div>
   );
 }

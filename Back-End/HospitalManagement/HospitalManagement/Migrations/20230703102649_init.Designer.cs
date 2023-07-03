@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalManagement.Migrations
 {
     [DbContext(typeof(DoctorPatientContext))]
-    [Migration("20230701160348_init")]
+    [Migration("20230703102649_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -39,6 +39,9 @@ namespace HospitalManagement.Migrations
                     b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PatientEmail")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PatientName")
                         .HasColumnType("nvarchar(max)");
 
@@ -56,6 +59,28 @@ namespace HospitalManagement.Migrations
                     b.HasIndex("DoctorId");
 
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("HospitalManagement.Models.Diagnose", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Symptoms")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Diagnoses");
                 });
 
             modelBuilder.Entity("HospitalManagement.Models.Doctor", b =>
@@ -87,10 +112,10 @@ namespace HospitalManagement.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tesimonials")
+                    b.Property<string>("Specialization")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Video")
+                    b.Property<string>("Tesimonials")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DoctorId");
@@ -111,9 +136,6 @@ namespace HospitalManagement.Migrations
 
                     b.Property<string>("BloodGroup")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DoctorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -137,8 +159,6 @@ namespace HospitalManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PatientId");
-
-                    b.HasIndex("DoctorId");
 
                     b.ToTable("Patients");
                 });
@@ -195,18 +215,9 @@ namespace HospitalManagement.Migrations
                     b.Navigation("Doctor");
                 });
 
-            modelBuilder.Entity("HospitalManagement.Models.Patient", b =>
-                {
-                    b.HasOne("HospitalManagement.Models.Doctor", null)
-                        .WithMany("Patients")
-                        .HasForeignKey("DoctorId");
-                });
-
             modelBuilder.Entity("HospitalManagement.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }

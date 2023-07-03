@@ -6,53 +6,53 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function PatientUser() {
-    const [patients, setPatients] = useState([]);
-    const navigate = useNavigate();
-  
-    useEffect(() => {
-      // Check if the user is authenticated
-      const isAuthenticated = getCookieValue('token');
-      if (!isAuthenticated) {
-        navigate('/login'); // Redirect to the login page if not authenticated
-      } else {
-        fetchPatients();
+  const [patients, setPatients] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const isAuthenticated = getCookieValue('token');
+    if (!isAuthenticated) {
+      navigate('/login'); // Redirect to the login page if not authenticated
+    } else {
+      fetchPatients();
+    }
+  }, [navigate]);
+
+  const getCookieValue = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return cookie.substring(name.length + 1);
       }
-    }, [navigate]);
-  
-    const getCookieValue = (name) => {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(`${name}=`)) {
-          return cookie.substring(name.length + 1);
+    }
+    return null;
+  };
+
+  const fetchPatients = () => {
+    axios
+      .get(Variables.API_URL + 'Patients', {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setPatients(response.data);
+        } else {
+          throw new Error('Failed to fetch patients');
         }
-      }
-      return null;
-    };
-  
-    const fetchPatients = () => {
-      axios
-        .get(Variables.API_URL + 'Patients', {
-          headers: {
-            Authorization: `Bearer ${getCookieValue('token')}`,
-          },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            setPatients(response.data);
-          } else {
-            throw new Error('Failed to fetch patients');
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching patients:', error);
-          toast.error('Error fetching patients:', error.message);
-        });
-    };
-  
-    return (
-        <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      })
+      .catch((error) => {
+        console.error('Error fetching patients:', error);
+        toast.error('Error fetching patients:', error.message);
+      });
+  };
+
+  return (
+    <div>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <a className="navbar-brand" href="/">Home</a>
         <button
           className="navbar-toggler"
@@ -82,10 +82,10 @@ export default function PatientUser() {
 
       <div className="container-fluid">
         <h1>Patients</h1>
-  
+
         <div className="row mt-3">
           {patients.map((patient) => (
-            <div className="col-md-4 mb-4" key={patient.patientId}>
+            <div className="col-md-3 mb-4" key={patient.patientId}>
               <div className="card">
                 <img
                   src={`https://localhost:7224/uploads/patient/${patient.patImagePath}`}
@@ -108,7 +108,6 @@ export default function PatientUser() {
           ))}
         </div>
       </div>
-      </div>
-    );
-  }
-  
+    </div>
+  );
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import image1 from './image-1.png'
 import image2 from './image-2.png'
+import image4 from './image-4.png'
 import './Login.css'
 import './ToastStyle.css';
 import { toast } from 'react-toastify';
@@ -46,6 +47,9 @@ function Login() {
                     document.cookie = `token=${resp}; expires=${getCookieExpirationDate()}; path=/`;
                     localStorage.setItem('email', email)
                     localStorage.setItem('name', name);
+                    if (role === 'doctor') {
+                        localStorage.setItem('DoctorName', name);
+                      }
                     navigate('/home');
                 })
                 .catch((err) => {
@@ -59,7 +63,7 @@ function Login() {
     // Function to calculate the expiration date for the cookie (e.g., 10 minutes from now)
     const getCookieExpirationDate = () => {
         const expirationDate = new Date();
-        expirationDate.setMinutes(expirationDate.getMinutes() + 10); // Set expiration to 10 minutes from now
+        expirationDate.setMinutes(expirationDate.getMinutes() + 30); // Set expiration to 10 minutes from now
         return expirationDate.toUTCString();
     };
 
@@ -148,7 +152,7 @@ function Login() {
                     </div>
 
                 </form>
-                <img src={image2} alt="" className="image-2" />
+                <img src={image4} alt="" className="image-2" />
             </div>
 
         </div>

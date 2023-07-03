@@ -16,7 +16,7 @@ namespace HospitalManagement.Repository
 
         public async Task<IEnumerable<Doctor>> GetDoctors()
         {
-            return await _context.Doctors.Include(x => x.Patients).ToListAsync();
+            return await _context.Doctors.Include(x => x.Appointments).ToListAsync();
         }
 
         public async Task<Doctor> GetDoctorById(int id)
@@ -93,7 +93,7 @@ namespace HospitalManagement.Repository
             existingDoctor.Experience = doctor.Experience;
             existingDoctor.LicenseNumber = doctor.LicenseNumber;
             existingDoctor.Tesimonials = doctor.Tesimonials;
-            existingDoctor.Video = doctor.Video;
+            existingDoctor.Specialization = doctor.Specialization;
             existingDoctor.DocImagePath = doctor.DocImagePath;
 
             await _context.SaveChangesAsync();

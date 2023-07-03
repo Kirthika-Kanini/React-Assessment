@@ -25,14 +25,17 @@ import Sidebar1 from './Component/Sidebar1/Sidebar1';
 import PatientUser from './Component/UserSide/PatientUser';
 import DoctorUser from './Component/UserSide/DoctorUser';
 import Navbar1 from './Component/Navbar1/Navbar1';
-import Home from './Component/UserSide/Home'
+import Home from './Component/UserSide/Home';
+import Approved from './Component/Approval/Approved';
+import UniqueAppointment from './Component/Appointment/UniqueAppointment';
 function App() {
   const shouldRenderSidebar = location.pathname !== '/Register' && location.pathname !== '/Login' && location.pathname !== '/register' && location.pathname !== '/login'
    && location.pathname !== '/PatientUser'&& location.pathname !== '/patientUser'&& location.pathname !== '/DoctorUser'&& location.pathname !== '/doctorUser'
    && location.pathname !== '/AppointmentPost'&& location.pathname !== '/appointmentPost'&& location.pathname !== '/AppointmentStatus'&& location.pathname !== '/appointmentStatus'
-   && location.pathname !== '/Sidebar1' && location.pathname !== '/Diagnosefetch' && location.pathname !== '/Approval' && location.pathname !== '/home' ;
+   && location.pathname !== '/Sidebar1' && location.pathname !== '/Diagnosefetch' && location.pathname !== '/Approval' && location.pathname !== '/home'&& location.pathname !== '/Home'
+   && location.pathname !== '/PatientPost'&& location.pathname !== '/patientpost' && location.pathname !== '/UniqueAppointment'  ;
 
-   const shouldRenderSidebar1=location.pathname=='/Diagnosefetch'
+
   return (
     <div className="App">
       <ToastContainer></ToastContainer>
@@ -61,6 +64,8 @@ function App() {
             <Route path="/sidebar1" Component={Navbar1} />
             <Route path="/DiagnoseFetch" element={<DiagnoseFetch/>} />
             <Route path="/home" element={<Home/>}/>
+            <Route path="/Approved" element={<Approved/>}/>
+            <Route path="/UniqueAppointment" element={<UniqueAppointment/>}/>
           </Routes>
         </div>
       </BrowserRouter>

@@ -132,7 +132,7 @@ function AppointmentApproval() {
           <p>Email: {register.patientEmail}</p>
           <p>Reason for Visit: {register.reasonForVisit}</p>
           <p>Status: {register.status}</p>
-          
+          <p>dcotor: {register.doctor && register.doctor.doctorName}</p>
           <div className='card-actions'>
             <div className="button-row">
               <button className="" onClick={() => handleAccept(register)}>

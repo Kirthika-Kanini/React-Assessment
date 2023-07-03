@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HospitalManagement.Models;
 using HospitalManagement.Repository;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace HospitalManagement.Controllers
 {
+ 
     [Route("api/[controller]")]
     [ApiController]
     public class PatientsController : ControllerBase
@@ -37,6 +40,7 @@ namespace HospitalManagement.Controllers
             }
             return Ok(patient);
         }
+        //[Authorize(Roles = "patient")]
         [HttpPost]
         public async Task<ActionResult<Patient>> Post([FromForm] Patient patient, IFormFile imageFile)
         {
@@ -53,6 +57,7 @@ namespace HospitalManagement.Controllers
                 return BadRequest(ModelState);
             }
         }
+        // [Authorize(Roles = "patient")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Patient>> Put(int id, [FromForm] Patient patient, IFormFile imageFile)
         {
@@ -67,16 +72,24 @@ namespace HospitalManagement.Controllers
                 return BadRequest(ModelState);
             }
         }
-        //[Authorize(Roles = "Course")]
+        //[Authorize(Roles = "patient")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _patientRepository.DeletePatient(id);
-            if (result)
+            try
             {
-                return NoContent();
+                var result = await _patientRepository.DeletePatient(id);
+                if (result)
+                {
+                    return NoContent();
+                }
+                return NotFound();
             }
-            return NotFound();
+            catch (Exception ex)
+            {
+                // Log the exception or perform any other desired error handling
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred.");
+            }
         }
     }
 }

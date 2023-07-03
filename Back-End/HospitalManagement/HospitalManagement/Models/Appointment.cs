@@ -4,6 +4,7 @@
     {
         public int AppointmentId { get; set; }
         public string? PatientName { get; set; }
+        public string? PatientEmail { get; set; }
         public string? Date { get; set; }
         public string? Time { get; set; }
         public string? ReasonForVisit { get; set; }

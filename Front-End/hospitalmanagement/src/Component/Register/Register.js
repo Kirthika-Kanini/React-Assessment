@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import image1 from './image-1.png';
 import image2 from './image-2.png';
+import image4 from './image-4.png';
 import './Register.css';
 import { toast } from 'react-toastify';
 import './ToastStyles.css';
@@ -97,6 +98,7 @@ function Register() {
 		console.log(JSON.stringify(regobj));
 		if (IsValidate()) {
 			localStorage.setItem('name', name);
+			localStorage.setItem('email', email);
 			fetch('https://localhost:7224/api/Users', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

@@ -37,13 +37,13 @@ input, textarea, select, button {
   .image-1 {
     position: absolute;
     bottom: 28px;
-    left: -160px;
+    left: -180px;
     z-index: 99; }
   
   .image-2 {
     position: absolute;
     bottom: 29px;
-    right: -220px; }
+    right: -300px; }
   
   form {
     width: 100%;

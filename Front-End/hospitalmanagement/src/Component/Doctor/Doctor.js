@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
-import XLSX from 'xlsx';
+import * as XLSX from 'xlsx';
 
 export default function Doctor() {
   const [Doctors, setDoctors] = useState([]);
