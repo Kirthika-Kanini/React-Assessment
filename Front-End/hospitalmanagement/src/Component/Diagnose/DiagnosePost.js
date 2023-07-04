@@ -1,49 +1,63 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Variables } from "../Variable";
 import "bootstrap/dist/css/bootstrap.css";
+import { useNavigate } from "react-router-dom";
+const DiagnosePost = () => {
+  const [diagnoses, setDiagnoses] = useState([]);
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [symptoms, setSymptoms] = useState("");
 
-export class DiagnosePost extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      diagnoses: [],
-      id: "",
-      name: "",
-      description: "",
-      symptoms: ""
-    };
-  }
-
-  componentDidMount() {
-    this.fetchDiagnoses();
-  }
-
-  fetchDiagnoses = () => {
+  useEffect(() => {
+    fetchDiagnoses();
+  }, []);
+  const navigate = useNavigate();
+  useEffect(() => {
+    // Check if the user is authenticated
+    const isAuthenticated = getCookieValue('token');
+    if (!isAuthenticated) {
+      navigate('/login'); // Redirect to the login page if not authenticated
+    } else {
+      fetchDiagnoses();
+    }
+  }, [navigate]);
+  const getCookieValue = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  const fetchDiagnoses = () => {
     axios
-      .get(Variables.API_URL + "Diagnoses")
+      .get(Variables.API_URL + "Diagnoses", {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
-        this.setState({ diagnoses: response.data });
+        setDiagnoses(response.data);
       })
       .catch((error) => {
         console.error("Error", error);
       });
   };
 
-  editDiagnose = (diagnose) => {
+  const editDiagnose = (diagnose) => {
     const { id, name, description, symptoms } = diagnose;
 
-    this.setState({
-      id: id,
-      name: name,
-      description: description,
-      symptoms: symptoms
-    });
+    setId(id);
+    setName(name);
+    setDescription(description);
+    setSymptoms(symptoms);
   };
 
-  updateDiagnose = () => {
-    const { id, name, description, symptoms } = this.state;
-
+  const updateDiagnose = () => {
     const updatedDiagnose = {
       id: id,
       name: name,
@@ -52,25 +66,25 @@ export class DiagnosePost extends Component {
     };
 
     axios
-      .put(Variables.API_URL + "Diagnoses/" + id, updatedDiagnose)
+      .put(Variables.API_URL + "Diagnoses/" + id, updatedDiagnose, {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         console.log("Updated", response.data);
-        this.fetchDiagnoses();
-        this.setState({
-          id: "",
-          name: "",
-          description: "",
-          symptoms: ""
-        });
+        fetchDiagnoses();
+        setId("");
+        setName("");
+        setDescription("");
+        setSymptoms("");
       })
       .catch((error) => {
         console.error("Error", error);
       });
   };
 
-  createDiagnose = () => {
-    const { name, description, symptoms } = this.state;
-
+  const createDiagnose = () => {
     const diagnose = {
       name: name,
       description: description,
@@ -78,121 +92,125 @@ export class DiagnosePost extends Component {
     };
 
     axios
-      .post(Variables.API_URL + "Diagnoses", diagnose)
+      .post(Variables.API_URL + "Diagnoses", diagnose, {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         console.log("Created", response.data);
-        this.fetchDiagnoses();
-        this.setState({
-          name: "",
-          description: "",
-          symptoms: ""
-        });
+        fetchDiagnoses();
+        setName("");
+        setDescription("");
+        setSymptoms("");
       })
       .catch((error) => {
         console.error("Error", error);
       });
   };
 
-  handleNameInputChange = (event) => {
-    this.setState({ name: event.target.value });
+  const handleNameInputChange = (event) => {
+    setName(event.target.value);
   };
 
-  handleDescriptionInputChange = (event) => {
-    this.setState({ description: event.target.value });
+  const handleDescriptionInputChange = (event) => {
+    setDescription(event.target.value);
   };
 
-  handleSymptomsInputChange = (event) => {
-    this.setState({ symptoms: event.target.value });
+  const handleSymptomsInputChange = (event) => {
+    setSymptoms(event.target.value);
   };
 
-  deleteDiagnose = (id) => {
+  const deleteDiagnose = (id) => {
     axios
-      .delete(Variables.API_URL + "Diagnoses/" + id)
+      .delete(Variables.API_URL + "Diagnoses/" + id, {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         console.log("Deleted", response.data);
-        this.fetchDiagnoses();
+        fetchDiagnoses();
       })
       .catch((error) => {
         console.error("Error", error);
       });
   };
 
-  render() {
-    const { diagnoses, id, name, description, symptoms } = this.state;
-
-    return (
-      <div>
-        <div className="container mt-5">
-          <h1 className="text-center">DIAGNOSE FORM</h1>
-          <div className="row justify-content-center mt-5">
-            <div className="col-md-6">
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={name}
-                  onChange={this.handleNameInputChange}
-                  placeholder="Enter Diagnose Name"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={description}
-                  onChange={this.handleDescriptionInputChange}
-                  placeholder="Enter Description"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={symptoms}
-                  onChange={this.handleSymptomsInputChange}
-                  placeholder="Enter Symptoms"
-                />
-              </div><br></br>
-              {id ? (
-                <button onClick={this.updateDiagnose}>Save Changes</button>
-              ) : (
-                <button onClick={this.createDiagnose}>Submit</button>
-              )}
+  return (
+    <div>
+      <div className="container mt-5">
+        <h1 className="text-center">DIAGNOSE FORM</h1>
+        <div className="row justify-content-center mt-5">
+          <div className="col-md-6">
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                value={name}
+                onChange={handleNameInputChange}
+                placeholder="Enter Diagnose Name"
+              />
             </div>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                value={description}
+                onChange={handleDescriptionInputChange}
+                placeholder="Enter Description"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                value={symptoms}
+                onChange={handleSymptomsInputChange}
+                placeholder="Enter Symptoms"
+              />
+            </div><br></br>
+            {id ? (
+              <button onClick={updateDiagnose}>Save Changes</button>
+            ) : (
+              <button onClick={createDiagnose}>Submit</button>
+            )}
           </div>
-          <h2 className="mt-5">Diagnose List</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Diagnose Name</th>
-                <th>Description</th>
-                <th>Symptoms</th>
-                <th>Update</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {diagnoses.map((diagnose) => (
-                <tr key={diagnose.id}>
-                  <td>{diagnose.name}</td>
-                  <td>{diagnose.description}</td>
-                  <td>{diagnose.symptoms}</td>
-                  <td>
-                    <button onClick={() => this.editDiagnose(diagnose)}>
-                      Edit
-                    </button>
-                  </td>
-                  <td>
-                    <button onClick={() => this.deleteDiagnose(diagnose.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
+        <h2 className="mt-5">Diagnose List</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Diagnose Name</th>
+              <th>Description</th>
+              <th>Symptoms</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {diagnoses.map((diagnose) => (
+              <tr key={diagnose.id}>
+                <td>{diagnose.name}</td>
+                <td>{diagnose.description}</td>
+                <td>{diagnose.symptoms}</td>
+                <td>
+                  <button onClick={() => editDiagnose(diagnose)}>
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <button onClick={() => deleteDiagnose(diagnose.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default DiagnosePost;

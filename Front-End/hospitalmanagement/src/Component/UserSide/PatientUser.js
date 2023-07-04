@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Variables } from '../Variable';
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -52,13 +52,15 @@ export default function PatientUser() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="/">Home</a>
+       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/home" style={{marginLeft:"20px"}}>
+          Home
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -68,13 +70,19 @@ export default function PatientUser() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="/about">About</a>
+              <Link className="nav-link" to="/DoctorUser"  style={{marginLeft:"20px"}}>
+                Doctor
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/services">Services</a>
+              <Link className="nav-link" to="/AppointmentStatus"  style={{marginLeft:"20px"}}>
+                Status
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/contact">Contact</a>
+              <Link className="nav-link" to="/DiagnoseFetch"  style={{marginLeft:"20px"}}>
+                Diagnose
+              </Link>
             </li>
           </ul>
         </div>

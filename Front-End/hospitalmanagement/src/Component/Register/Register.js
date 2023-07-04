@@ -240,7 +240,7 @@ function Register() {
 					</div>
 
 				</form>
-				<img src={image2} alt="" className="image-2" />
+				<img src={image2} alt="" className="image-2R" />
 			</div>
 
 		</div>

@@ -22,8 +22,8 @@ namespace HospitalManagement.Controllers
         {
             _doctorRepository = doctorRepository;
         }
-
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Doctor>>> Get()
         {
             var doctors = await _doctorRepository.GetDoctors();
@@ -40,7 +40,7 @@ namespace HospitalManagement.Controllers
             }
             return Ok(doctor);
         }
-        //[Authorize(Roles = "doctor")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Doctor>> Post([FromForm] Doctor doctor, IFormFile imageFile)
         {
@@ -57,7 +57,7 @@ namespace HospitalManagement.Controllers
                 return BadRequest(ModelState);
             }
         }
-        //[Authorize(Roles = "doctor")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Doctor>> Put(int id, [FromForm] Doctor doctor, IFormFile imageFile)
         {
@@ -72,7 +72,7 @@ namespace HospitalManagement.Controllers
                 return BadRequest(ModelState);
             }
         }
-        //[Authorize(Roles = "doctor")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

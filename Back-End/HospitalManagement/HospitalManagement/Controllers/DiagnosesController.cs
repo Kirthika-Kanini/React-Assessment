@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HospitalManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalManagement.Controllers
 {
@@ -52,6 +53,7 @@ namespace HospitalManagement.Controllers
         // PUT: api/Diagnoses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> PutDiagnose(int id, Diagnose diagnose)
         {
             if (id != diagnose.Id)
@@ -83,6 +85,7 @@ namespace HospitalManagement.Controllers
         // POST: api/Diagnoses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Diagnose>> PostDiagnose(Diagnose diagnose)
         {
           if (_context.Diagnoses == null)
@@ -97,6 +100,7 @@ namespace HospitalManagement.Controllers
 
         // DELETE: api/Diagnoses/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDiagnose(int id)
         {
             if (_context.Diagnoses == null)

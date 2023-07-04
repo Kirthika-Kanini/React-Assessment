@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Variables } from "../Variable";
 import "./AppointmentStatus.css";
+import { Link} from 'react-router-dom';
 
 export class AppointmentStatus extends Component {
   constructor(props) {
@@ -58,33 +59,41 @@ export class AppointmentStatus extends Component {
 
     return (
       <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="/">Home</a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <a className="nav-link" href="/about">About</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/services">Services</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/home" style={{marginLeft:"20px"}}>
+          Home
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/DoctorUser"  style={{marginLeft:"20px"}}>
+                Doctor
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/AppointmentStatus"  style={{marginLeft:"20px"}}>
+                Status
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/DiagnoseFetch"  style={{marginLeft:"20px"}}>
+                Diagnose
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div className="card-container">
         {Appointments.map((appointment) => (
           <div key={appointment.appointmentId} className="card">

@@ -1,19 +1,42 @@
-.App {
-  display: flex;
+.sidebar {
+  width: auto;
+  background-color: #f8f9fa;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  transition: transform 0.3s ease;
+  z-index: 100;
 }
 
-.sidebar {
-  width: 200px;
-  background-color: #f0f0f0;
-  padding: 10px;
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+.sidebar.open {
+  transform: translateX(0);
 }
 
 .content {
-  flex-grow: 1;
-  padding: 10px;
-  margin-left: 320px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
 }
 
-.content1{
+.content1 {
   width: 100%;
+}
+
+.content.open {
+  margin-left: 240px;
+}
+
+@media (max-width: 768px) {
+  .content.open {
+    margin-left: 57px;
+  }
+}
+
+@media (max-width: 769px) {
+  .content.open {
+    margin-left: 57px;
+  }
 }

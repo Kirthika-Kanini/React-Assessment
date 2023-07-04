@@ -1,58 +1,66 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Variables } from "../Variable";
 import 'bootstrap/dist/css/bootstrap.css';
+import { Link,useNavigate } from 'react-router-dom';
 
-export class AppointmentPost extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Appointments: [],
-      patientName: "",
-      date: "", 
-      time: "",
-      patientEmail:"",
-      reasonForVisit: "",
-      status: "scheduled", // Set default value as "scheduled"
-      doctorId: ""
-    };
-  }
-
-  componentDidMount() {
+const AppointmentPost = () => {
+  const [Appointments, setAppointments] = useState([]);
+  const [patientName, setPatientName] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [patientEmail, setPatientEmail] = useState("");
+  const [reasonForVisit, setReasonForVisit] = useState("");
+  const [status, setStatus] = useState("scheduled"); // Set default value as "scheduled"
+  const [doctorId, setDoctorId] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
     const selectedDoctorId = localStorage.getItem('selectedDoctorId');
     if (selectedDoctorId) {
-      this.setState({ doctorId: selectedDoctorId });
+      setDoctorId(selectedDoctorId);
     }
-    this.fetchAppointments();
-  }
-
-  fetchAppointments = () => {
+    fetchAppointments();
+  }, []);
+  useEffect(() => {
+    // Check if the user is authenticated
+    const isAuthenticated = getCookieValue('token');
+    if (!isAuthenticated) {
+      navigate('/login'); // Redirect to the login page if not authenticated
+    } else {
+      fetchAppointments();
+    }
+  }, [navigate]);
+  const getCookieValue = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
+  const fetchAppointments = () => {
     axios
-      .get(Variables.API_URL + "Appointments")
+      .get(Variables.API_URL + "Appointments", {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
-        this.setState({ Appointments: response.data });
+        setAppointments(response.data);
       })
       .catch((error) => {
         console.error("Error", error);
       });
   };
 
-  createAppointment = () => {
-    const {
-      patientName,
-      date,
-      time,
-      reasonForVisit,
-      patientEmail,
-      status,
-      doctorId
-    } = this.state;
-
+  const createAppointment = () => {
     const appointment = {
       patientName: patientName,
       date: date,
       time: time,
-      patientEmail:patientEmail,
+      patientEmail: patientEmail,
       reasonForVisit: reasonForVisit,
       status: status,
       doctor: {
@@ -61,19 +69,20 @@ export class AppointmentPost extends Component {
     };
 
     axios
-      .post(Variables.API_URL + "Appointments", appointment)
+      .post(Variables.API_URL + "Appointments", appointment, {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         console.log("Created", response.data);
-        this.fetchAppointments();
-        this.setState({
-          patientName: "",
-          date: "",
-          time: "",
-          reasonForVisit: "",
-          patientEmail:"",
-          status: "scheduled", // Reset status to "scheduled" after submission
-          doctorId: ""
-        });
+        fetchAppointments();
+        setPatientName("");
+        setDate("");
+        setTime("");
+        setPatientEmail("");
+        setReasonForVisit("");
+        setStatus("scheduled"); // Reset status to "scheduled" after submission
         localStorage.setItem("patientName", patientName);
       })
       .catch((error) => {
@@ -81,80 +90,75 @@ export class AppointmentPost extends Component {
       });
   };
 
-  handlePatientNameInputChange = (event) => {
-    this.setState({ patientName: event.target.value });
+  const handlePatientNameInputChange = (event) => {
+    setPatientName(event.target.value);
   };
 
-  handleDateInputChange = (event) => {
-    this.setState({ date: event.target.value });
+  const handleDateInputChange = (event) => {
+    setDate(event.target.value);
   };
 
-  handleTimeInputChange = (event) => {
-    this.setState({ time: event.target.value });
+  const handleTimeInputChange = (event) => {
+    setTime(event.target.value);
   };
 
-  handleReasonForVisitInputChange = (event) => {
-    this.setState({ reasonForVisit: event.target.value });
-  };
-  handleEmailInputChange = (event) => {
-    this.setState({ patientEmail: event.target.value });
-  };
-  handleStatusInputChange = (event) => {
-    this.setState({ status: event.target.value });
+  const handleReasonForVisitInputChange = (event) => {
+    setReasonForVisit(event.target.value);
   };
 
-  handleDoctorIdInputChange = (event) => {
-    this.setState({ doctorId: event.target.value });
+  const handleEmailInputChange = (event) => {
+    setPatientEmail(event.target.value);
   };
 
-  render() {
-    const {
-      Appointments,
-      patientName,
-      date,
-      time,
-      reasonForVisit,
-      patientEmail,
-      doctorId
-    } = this.state;
+  const handleDoctorIdInputChange = (event) => {
+    setDoctorId(event.target.value);
+  };
 
-    return (
-      <div>
+  return (
+    <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="/">Home</a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <a className="nav-link" href="/about">About</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/services">Services</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+        <Link className="navbar-brand" to="/home" style={{ marginLeft: "20px" }}>
+          Home
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/DoctorUser" style={{ marginLeft: "20px" }}>
+                Doctor
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/AppointmentStatus" style={{ marginLeft: "20px" }}>
+                Status
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/DiagnoseFetch" style={{ marginLeft: "20px" }}>
+                Diagnose
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div className="container mt-5">
-        <h1 style={{justifyContent:"center"}}>APPOINTMENT FORM</h1>
+        <h1 style={{ justifyContent: "center" }}>APPOINTMENT FORM</h1>
         <div className="form-group mt-5">
           <input
             type="text"
             className="form-control"
             value={patientName}
-            onChange={this.handlePatientNameInputChange}
+            onChange={handlePatientNameInputChange}
             placeholder="Enter Patient Name"
           />
         </div>
@@ -163,7 +167,7 @@ export class AppointmentPost extends Component {
             type="text"
             className="form-control"
             value={date}
-            onChange={this.handleDateInputChange}
+            onChange={handleDateInputChange}
             placeholder="Enter Date"
           />
         </div>
@@ -172,7 +176,7 @@ export class AppointmentPost extends Component {
             type="text"
             className="form-control"
             value={time}
-            onChange={this.handleTimeInputChange}
+            onChange={handleTimeInputChange}
             placeholder="Enter Time"
           />
         </div>
@@ -181,7 +185,7 @@ export class AppointmentPost extends Component {
             type="text"
             className="form-control"
             value={reasonForVisit}
-            onChange={this.handleReasonForVisitInputChange}
+            onChange={handleReasonForVisitInputChange}
             placeholder="Enter Reason for Visit"
           />
         </div>
@@ -190,7 +194,7 @@ export class AppointmentPost extends Component {
             type="text"
             className="form-control"
             value={patientEmail}
-            onChange={this.handleEmailInputChange}
+            onChange={handleEmailInputChange}
             placeholder="Enter Email"
           />
         </div>
@@ -203,10 +207,12 @@ export class AppointmentPost extends Component {
             placeholder="Enter Doctor ID"
           />
         </div>
-        <button className="btn btn-primary" onClick={this.createAppointment}>
+        <button className="btn btn-primary" onClick={createAppointment}>
           Submit
         </button>
-      </div></div>
-    );
-  }
-}
+      </div>
+    </div>
+  );
+};
+
+export default AppointmentPost;

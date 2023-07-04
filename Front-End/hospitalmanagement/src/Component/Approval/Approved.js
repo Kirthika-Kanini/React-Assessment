@@ -3,19 +3,40 @@ import axios from 'axios';
 import { Variables } from '../Variable';
 import { toast } from 'react-toastify';
 import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
+import { useNavigate } from "react-router-dom";
 function Approved() {
   const [registers, setRegisters] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchItems();
   }, []);
-
+  useEffect(() => {
+    // Check if the user is authenticated
+    const isAuthenticated = getCookieValue('token');
+    if (!isAuthenticated) {
+      navigate('/login'); // Redirect to the login page if not authenticated
+    } else {
+      fetchItems();
+    }
+  }, [navigate]);
+  const getCookieValue = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
   const fetchItems = () => {
     axios
-      .get(Variables.API_URL + 'Users')
+      .get(Variables.API_URL + 'Users', {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           setRegisters(response.data);

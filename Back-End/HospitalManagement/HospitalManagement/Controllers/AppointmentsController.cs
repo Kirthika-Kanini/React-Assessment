@@ -1,11 +1,13 @@
 ﻿using HospitalManagement.Models;
 using HospitalManagement.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HospitalManagement.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AppointmentsController : ControllerBase
@@ -28,19 +30,19 @@ namespace HospitalManagement.Controllers
         {
             return await _appointmentRepository.GetAppointment(id);
         }
-
+        [Authorize(Roles ="Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAppointment(int id, Appointment appointment)
         {
             return await _appointmentRepository.PutAppointment(id, appointment);
         }
-
+        [Authorize(Roles = "patient")]
         [HttpPost]
         public async Task<ActionResult<Appointment>> PostAppointment(Appointment appointment)
         {
             return await _appointmentRepository.PostAppointment(appointment);
         }
-
+        [Authorize(Roles = "patient,Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
         {

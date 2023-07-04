@@ -26,7 +26,6 @@ function Login() {
         if (validate()) {
             const inputObj = { name: name, password: password };
             const url = `https://localhost:7224/api/Token/${role}`;
-
             fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -42,10 +41,10 @@ function Login() {
                 .then((resp) => {
                     console.log(resp);
                     toast.success('Success');
-
+                    localStorage.setItem('token',resp.token);
                     // Store the token in a cookie
                     document.cookie = `token=${resp}; expires=${getCookieExpirationDate()}; path=/`;
-                    localStorage.setItem('email', email)
+                    localStorage.setItem('email', email);
                     localStorage.setItem('name', name);
                     if (role === 'doctor') {
                         localStorage.setItem('DoctorName', name);

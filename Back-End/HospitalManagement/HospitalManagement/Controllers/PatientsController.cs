@@ -40,8 +40,9 @@ namespace HospitalManagement.Controllers
             }
             return Ok(patient);
         }
-        //[Authorize(Roles = "patient")]
+        
         [HttpPost]
+        [Authorize(Roles ="patient")]
         public async Task<ActionResult<Patient>> Post([FromForm] Patient patient, IFormFile imageFile)
         {
 
@@ -57,8 +58,9 @@ namespace HospitalManagement.Controllers
                 return BadRequest(ModelState);
             }
         }
-        // [Authorize(Roles = "patient")]
+
         [HttpPut("{id}")]
+        [Authorize(Roles = "patient")]
         public async Task<ActionResult<Patient>> Put(int id, [FromForm] Patient patient, IFormFile imageFile)
         {
             try
@@ -72,8 +74,9 @@ namespace HospitalManagement.Controllers
                 return BadRequest(ModelState);
             }
         }
-        //[Authorize(Roles = "patient")]
+     
         [HttpDelete("{id}")]
+        [Authorize(Roles = "patient")]
         public async Task<IActionResult> Delete(int id)
         {
             try

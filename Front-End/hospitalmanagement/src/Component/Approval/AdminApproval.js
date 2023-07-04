@@ -11,10 +11,36 @@ function AdminApproval() {
   useEffect(() => {
     fetchItems();
   }, []);
+  useEffect(() => {
+    // Check if the user is authenticated
+    const isAuthenticated = getCookieValue('token');
+    const token=localStorage.getItem ('token');
+    if (!isAuthenticated) {
+      navigate('/login'); // Redirect to the login page if not authenticated
+    } else {
+      fetchItems();
+    }
+  }, [navigate]);
+
+  
+  const getCookieValue = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  };
 
   const fetchItems = () => {
     axios
-      .get(Variables.API_URL + 'Users')
+      .get(Variables.API_URL + 'Users', {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           const doctors = response.data.filter((user) => user.role === 'doctor');
@@ -37,7 +63,11 @@ function AdminApproval() {
   
     // Update the status in the database
     axios
-      .put(Variables.API_URL + `Users/${registerId}`, { id, name, email, password, role, phone, country, address, gender, specialization, status: updatedStatus })
+      .put(Variables.API_URL + `Users/${registerId}`, { id, name, email, password, role, phone, country, address, gender, specialization, status: updatedStatus }, {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         // Handle successful update
         console.log('Status updated successfully');
@@ -66,7 +96,11 @@ function AdminApproval() {
   
     // Update the status in the database
     axios
-      .put(Variables.API_URL + `Users/${registerId}`, { id, name, email, password, role, phone, country, address, gender, specialization, status: updatedStatus })
+      .put(Variables.API_URL + `Users/${registerId}`, { id, name, email, password, role, phone, country, address, gender, specialization, status: updatedStatus }, {
+        headers: {
+          Authorization: `Bearer ${getCookieValue('token')}`,
+        },
+      })
       .then((response) => {
         // Handle successful update
         console.log('Status updated successfully');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
-import { useNavigate } from 'react-router-dom'; // Replace 'your-routing-library' with the actual routing library you are using
+import { useNavigate,Link } from 'react-router-dom'; // Replace 'your-routing-library' with the actual routing library you are using
 import './Otpverify.css';
 function OtpVerify() {
     const digitValidate = function (ele) {
@@ -79,6 +79,42 @@ function OtpVerify() {
     console.log('OTP:', otp);
   };
   return (
+    <div>
+       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/home" style={{marginLeft:"20px"}}>
+          Home
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/DoctorUser"  style={{marginLeft:"20px"}}>
+                Doctor
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/AppointmentStatus"  style={{marginLeft:"20px"}}>
+                Status
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/DiagnoseFetch"  style={{marginLeft:"20px"}}>
+                Diagnose
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
     <div className="mobile-container">
     <div className="mobile-screen">
    
@@ -124,7 +160,7 @@ function OtpVerify() {
         <button></button>
       </div>
     </div>
-  </div>
+  </div></div>
   );
 };
 

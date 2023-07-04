@@ -40,10 +40,11 @@ input, textarea, select {
     left: -180px;
     z-index: 99; }
   
-  .image-2 {
+  .image-2R {
     position: absolute;
     bottom: 29px;
-    right: -180px; }
+    right: -180px;
+  }
   
   form {
     width: 100%;
