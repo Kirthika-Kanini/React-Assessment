@@ -105,19 +105,13 @@ const Home = () => {
   <article>
     <div class="article-wrapper">
       <figure>
-        <img src="https://picsum.photos/id/1011/800/450" alt="" />
+        <img src="https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
       </figure>
       <div class="article-body">
-        <h2>This is some title</h2>
-        <p>
-          Curabitur convallis ac quam vitae laoreet. Nulla mauris ante, euismod sed lacus sit amet, congue bibendum eros. Etiam mattis lobortis porta. Vestibulum ultrices iaculis enim imperdiet egestas.
+        <h2>Satisfied Healthy Patient</h2>
+        <p>Experienced a  exceptional care and support you provided.Your compassion and expertise made a profound impact,Thank you for being an outstanding physician.
         </p>
-        <a href="#" class="read-more">
-          Read more <span class="sr-only">about this is some title</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </a>
+  
       </div>
     </div>
   </article>
@@ -125,19 +119,14 @@ const Home = () => {
 
     <div class="article-wrapper">
       <figure>
-        <img src="https://picsum.photos/id/1005/800/450" alt="" />
+        <img src="https://images.pexels.com/photos/3779702/pexels-photo-3779702.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
       </figure>
       <div class="article-body">
         <h2>This is some title</h2>
         <p>
-          Curabitur convallis ac quam vitae laoreet. Nulla mauris ante, euismod sed lacus sit amet, congue bibendum eros. Etiam mattis lobortis porta. Vestibulum ultrices iaculis enim imperdiet egestas.
+        Your diagnostic skills and thorough approach to my treatment were truly remarkable. You left no stone unturned in ensuring an accurate diagnosis, and your attention to detail in designing a personalized treatment plan was evident. 
         </p>
-        <a href="#" class="read-more">
-          Read more <span class="sr-only">about this is some title</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </a>
+        
       </div>
     </div>
   </article>
@@ -145,19 +134,14 @@ const Home = () => {
 
     <div class="article-wrapper">
       <figure>
-        <img src="https://picsum.photos/id/103/800/450" alt="" />
+        <img src="https://media.istockphoto.com/id/1373258553/photo/smiling-mature-doctor-in-hospital-hallway.jpg?b=1&s=612x612&w=0&k=20&c=bA1fovbHbETnnjusgEd3Y4D6XAi92pTXhvn4GqJaxZY=" alt="" />
       </figure>
       <div class="article-body">
         <h2>This is some title</h2>
         <p>
-          Curabitur convallis ac quam vitae laoreet. Nulla mauris ante, euismod sed lacus sit amet, congue bibendum eros. Etiam mattis lobortis porta. Vestibulum ultrices iaculis enim imperdiet egestas.
+        I was impressed by your ability to create a comfortable and welcoming environment. Your attentive listening and genuine concern for my symptoms and concerns made me feel heard and understood. 
         </p>
-        <a href="#" class="read-more">
-          Read more <span class="sr-only">about this is some title</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </a>
+     
       </div>
     </div>
   </article>

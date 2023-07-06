@@ -19,7 +19,11 @@ const PatientPost = () => {
   const [preferredLanguage, setPreferredLanguage] = useState("");
   const [showForm, setShowForm] = useState(false);
 
+
   const navigate = useNavigate();
+  const patientLogName = localStorage.getItem('PatientLogName');
+
+
   useEffect(() => {
     // Check if the user is authenticated
     const isAuthenticated = getCookieValue('token');
@@ -46,21 +50,22 @@ const PatientPost = () => {
     return null;
   };
 
+ 
   const fetchPatients = () => {
     axios
-      .get(Variables.API_URL + "Patients",{
+      .get(Variables.API_URL + "Patients", {
         headers: {
           Authorization: `Bearer ${getCookieValue('token')}`,
         },
       })
       .then((response) => {
-        setPatients(response.data);
+        const filteredPatients = response.data.filter(patient => patient.patientName === patientLogName);
+        setPatients(filteredPatients);
       })
       .catch((error) => {
         console.error("Error fetching patients:", error);
       });
   };
-
   const handleDelete = (patientId) => {
     axios
       .delete(Variables.API_URL + `Patients/${patientId}`,{
@@ -153,7 +158,7 @@ const PatientPost = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <Link className="navbar-brand" to="/home">Home</Link>
+        <Link className="navbar-brand">Welcome {patientLogName}</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -176,6 +181,7 @@ const PatientPost = () => {
             <li className="nav-item">
               <Link className="navbar-brand" to="/DiagnoseFetch">Diagnose</Link>
             </li>
+           
           </ul>
         </div>
       </nav>

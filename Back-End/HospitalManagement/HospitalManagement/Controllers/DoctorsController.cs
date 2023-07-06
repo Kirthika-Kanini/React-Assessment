@@ -23,7 +23,7 @@ namespace HospitalManagement.Controllers
             _doctorRepository = doctorRepository;
         }
         [HttpGet]
-        [Authorize]
+        
         public async Task<ActionResult<IEnumerable<Doctor>>> Get()
         {
             var doctors = await _doctorRepository.GetDoctors();

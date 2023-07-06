@@ -30,6 +30,7 @@ import Sidebarnew from './Component/Sidebarnew/Sidebarnew';
 import LoginAdmin from './Component/Login/LoginAdmin';
 import ProtectedApproval from './Component/ProtectedRoute/ProtectedApproval';
 import './App.css';
+import Logout from './Component/Logout';
 
 function App() {
 
@@ -43,8 +44,8 @@ function App() {
    && location.pathname !== '/PatientUser'&& location.pathname !== '/patientUser'&& location.pathname !== '/DoctorUser'&& location.pathname !== '/doctorUser'
    && location.pathname !== '/AppointmentPost'&& location.pathname !== '/appointmentPost'&& location.pathname !== '/AppointmentStatus'&& location.pathname !== '/appointmentStatus'
    && location.pathname !== '/Sidebar1' && location.pathname !== '/Diagnosefetch' && location.pathname !== '/Approval' && location.pathname !== '/home'&& location.pathname !== '/Home'
-   && location.pathname !== '/PatientPost'&& location.pathname !== '/patientpost' && location.pathname !== '/UniqueAppointment' && location.pathname !== '/Otpverify'
-   && location.pathname !== '/otpverify' && location.pathname !== '/LoginAdmin' ;
+   && location.pathname !== '/patientPost'&& location.pathname !== '/patientPost' && location.pathname !== '/UniqueAppointment' && location.pathname !== '/Otpverify'
+   && location.pathname !== '/otpverify' && location.pathname !== '/LoginAdmin' && location.pathname !== '/approval' ;
    const token = localStorage.getItem("token");
   return (
     <div className="App">
@@ -82,6 +83,7 @@ function App() {
             <Route path="/UniqueAppointment" element={<UniqueAppointment />} />
             <Route path="/Sidebarnew" element={<Sidebarnew />} />
             <Route path="/LoginAdmin" element={<LoginAdmin />} />
+            <Route path="/Logout" element={<Logout />} />
           </Routes>
         </div>
       </Router>

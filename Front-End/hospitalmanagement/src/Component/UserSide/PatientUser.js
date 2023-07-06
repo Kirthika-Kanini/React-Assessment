@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 export default function PatientUser() {
   const [patients, setPatients] = useState([]);
   const navigate = useNavigate();
+  const patientLogName = localStorage.getItem('PatientLogName');
 
   useEffect(() => {
     // Check if the user is authenticated
@@ -18,7 +19,10 @@ export default function PatientUser() {
       fetchPatients();
     }
   }, [navigate]);
-
+  const logout = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    localStorage.clear();
+  };
   const getCookieValue = (name) => {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -39,7 +43,8 @@ export default function PatientUser() {
       })
       .then((response) => {
         if (response.status === 200) {
-          setPatients(response.data);
+          const filteredPatients = response.data.filter(patient => patient.patientName === patientLogName);
+          setPatients(filteredPatients);
         } else {
           throw new Error('Failed to fetch patients');
         }
@@ -82,6 +87,21 @@ export default function PatientUser() {
             <li className="nav-item">
               <Link className="nav-link" to="/DiagnoseFetch"  style={{marginLeft:"20px"}}>
                 Diagnose
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/PatientPost" style={{marginLeft:"20px"}}>
+                Access
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/AppointmentStatus" style={{marginLeft:"20px"}}>
+                Appointment Status
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Login"  onClick={logout} style={{marginLeft:"20px"}}>
+                Logout
               </Link>
             </li>
           </ul>

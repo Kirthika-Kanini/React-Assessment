@@ -86,11 +86,7 @@ export default function UniqueAppointment() {
                 Doctor
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/AppointmentStatus"  style={{marginLeft:"20px"}}>
-                Status
-              </Link>
-            </li>
+          
             <li className="nav-item">
               <Link className="nav-link" to="/DiagnoseFetch"  style={{marginLeft:"20px"}}>
                 Diagnose

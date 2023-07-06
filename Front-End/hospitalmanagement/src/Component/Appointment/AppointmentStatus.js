@@ -29,6 +29,7 @@ export class AppointmentStatus extends Component {
       });
     }
   }
+  
 
   fetchAppointments = () => {
     const { patientName } = this.state;
@@ -91,6 +92,7 @@ export class AppointmentStatus extends Component {
                 Diagnose
               </Link>
             </li>
+          
           </ul>
         </div>
       </nav>

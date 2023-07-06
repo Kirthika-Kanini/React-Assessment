@@ -39,7 +39,6 @@ function Login() {
                     }
                 })
                 .then((resp) => {
-                    console.log(resp);
                     toast.success('Success');
                     localStorage.setItem('token',resp.token);
                     // Store the token in a cookie
@@ -48,8 +47,14 @@ function Login() {
                     localStorage.setItem('name', name);
                     if (role === 'doctor') {
                         localStorage.setItem('DoctorName', name);
+                        navigate('/UniqueAppointment');
                       }
-                    navigate('/home');
+                      else{
+                        localStorage.setItem('PatientLogName', name);
+                        localStorage.setItem('patientName', name);
+                        navigate('/patientPost');
+                      }
+                    
                 })
                 .catch((err) => {
                     toast.error('Login Failed due to: ' + err.message);

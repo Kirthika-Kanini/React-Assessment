@@ -56,7 +56,7 @@ function Approved() {
     <div>
       <div className="row">
         {approvedRegisters.map((register) => (
-          <div key={register.id} className="col-md-3 mb-3">
+          <div key={register.id} className="col-md-3 mb-3 ">
             <Card>
               <Card.Body>
                 <Card.Title>{register.name}</Card.Title>

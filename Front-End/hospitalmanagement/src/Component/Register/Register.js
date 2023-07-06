@@ -8,42 +8,6 @@ import './ToastStyles.css';
 import { Link, useNavigate } from 'react-router-dom';
 function Register() {
 	const navigate = useNavigate();
-
-	// const [scrollDisabled, setScrollDisabled] = useState(false);
-
-	// useEffect(() => {
-	// 	const handleScroll = () => {
-	// 		if (scrollDisabled) {
-	// 			window.scrollTo(0, 0);
-	// 		}
-	// 	};
-
-	// 	if (scrollDisabled) {
-	// 		document.body.style.overflow = 'hidden';
-	// 		window.addEventListener('scroll', handleScroll);
-	// 	} else {
-	// 		document.body.style.overflow = 'auto';
-	// 		window.removeEventListener('scroll', handleScroll);
-	// 	}
-	// 	return () => {
-	// 		document.body.style.overflow = 'auto';
-	// 		window.removeEventListener('scroll', handleScroll);
-	// 	};
-	// }, [scrollDisabled]);
-
-	// const disableScroll = () => {
-	// 	setScrollDisabled(true);
-	// };
-
-	// const enableScroll = () => {
-	// 	setScrollDisabled(false);
-	// };
-
-	// useEffect(() => {
-	// 	disableScroll();
-	// })
-
-
 	const [name, namechange] = useState("");
 	const [password, passwordchange] = useState("");
 	const [email, emailchange] = useState("");
@@ -58,10 +22,6 @@ function Register() {
 	const IsValidate = () => {
 		let isproceed = true;
 		let errormessage = 'Please enter the value in ';
-		// if (id === null || id === '') {
-		//     isproceed = false;
-		//     errormessage += ' Username';
-		// }
 		if (name === null || name === '') {
 			isproceed = false;
 			errormessage += ' Fullname';

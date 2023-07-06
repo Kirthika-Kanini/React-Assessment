@@ -37,11 +37,7 @@ export default function DoctorUser() {
 
   const fetchDoctors = () => {
     axios
-      .get(Variables.API_URL + 'Doctors', {
-        headers: {
-          Authorization: `Bearer ${getCookieValue('token')}`,
-        },
-      })
+      .get(Variables.API_URL + 'Doctors')
       .then((response) => {
         if (response.status === 200) {
           setDoctors(response.data);
@@ -80,8 +76,8 @@ export default function DoctorUser() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/AppointmentStatus"  style={{marginLeft:"20px"}}>
-                Status
+              <Link className="nav-link" to="/PatientPost"  style={{marginLeft:"20px"}}>
+                Patient Access
               </Link>
             </li>
             <li className="nav-item">
